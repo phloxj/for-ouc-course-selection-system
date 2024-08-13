@@ -1,7 +1,7 @@
 # for-ouc-course-selection-system
 中国海洋大学选课系统的一些处理，包括爬取课表，排课，查找空闲时间的课程等功能
 
-主要参考文献来自CSDN中[tfnmdmx大佬的文章](https://www.bilibili.com)
+主要参考文献来自CSDN中[tfnmdmx大佬的文章](https://blog.csdn.net/tfnmdmx/article/details/119023381)
 
 很多功能都仍处于构想中，未来可能的话会尝试实现的。
 
