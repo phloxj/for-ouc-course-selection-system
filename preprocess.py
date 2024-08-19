@@ -5,8 +5,8 @@ import os
 
 # 输入数据
 path = r"C:\Users\qwe_r\Documents\选课"  # 文件夹路径
-year = '2024'  # 学年
-term = '1'  # 学期 夏-0 秋-1 春-2
+year = '2023'  # 学年
+term = '2'  # 学期 夏-0 秋-1 春-2
 
 # 构建路径
 read_name = "\\xuanke" + year + term + ".xlsx"
@@ -65,16 +65,29 @@ for kc in kcfw:
     sheet = workbook[sheet_name]
     # 上课时间处理，time
     obj = re.compile(r'周 (?P<zhou>.*?)[(](?P<staj>\d+)-(?P<endj>\d+)节')
+    """
+    错误警告：17周 日(10节)
+    为啥还有单节的课啊(ಥ_ಥ)
+    """
     time = []
     column_values = [cell.value for cell in sheet['M']]
     for value in column_values:
         if value is not None:
             ans = obj.finditer(value)
-
+            found = False
             for i in ans:
+                found = True
                 time += [[shuz(i.group('zhou')), i.group('staj'), i.group('endj')]]
+            if not found:
+                if value == '上课时间':
+                    pass
+                else:
+                    time += [['', '', '']]
+                    print("错误：请手动排查", value)
         else:
             time += [['']]
+        # if value == '1-10,13,15-17周 四(1-2节)':
+        #     print(time)
 
     # 课程处理，course
     obj = re.compile(r'\[\d+](?P<num>.*)')
